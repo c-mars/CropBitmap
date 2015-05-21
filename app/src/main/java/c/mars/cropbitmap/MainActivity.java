@@ -17,15 +17,24 @@ import android.util.Size;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    Item[] items=new Item[]{new Item("Alpha"), new Item("Beta"), new Item("Gamma")};
+    ListView listView;
+    CustomAdapter adapter;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        listView= (ListView) findViewById(R.id.list);
+        adapter=new CustomAdapter(this, items);
+        listView.setAdapter(adapter);
     }
 
     @Override
@@ -49,7 +58,7 @@ public class MainActivity extends ActionBarActivity {
         Rect srcRect = dstRect;
 
 
-        Bitmap bitmap = Bitmap.createBitmap(size.getWidth(), size.getHeight(), Bitmap.Config.RGB_565);
+        Bitmap bitmap = Bitmap.createBitmap(size.getWidth(), size.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         canvas.drawBitmap(original, srcRect, dstRect, null);
 
